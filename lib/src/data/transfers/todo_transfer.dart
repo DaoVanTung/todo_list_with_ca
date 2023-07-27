@@ -2,7 +2,7 @@
 // Chúng ta sẽ tạo Model để sử dụng trong tầng Data
 // Và sử dụng Transfer để chuyển đổi Model trong tầng Data thành Entity trong tầng Domain
 // Khi Entity trong Domain thay đổi, chúng ta chỉ cần cập nhật lại lớp Transfer của đối tượng tương ứng
-// Nếu sử dụng Entity ở tầng Domain thì khi Entity thay đổi tầng Data sẽ phải cập nhật lại mọi chỗ sử dụng Entity
+// Nếu sử dụng Entity ở tầng Data thì khi Entity thay đổi tầng Data sẽ phải cập nhật lại mọi chỗ sử dụng Entity
 
 import '../../domain/entities/todo_entity.dart';
 import '../model/todo_model.dart';
