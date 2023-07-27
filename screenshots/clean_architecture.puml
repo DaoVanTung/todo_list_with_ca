@@ -1,0 +1,68 @@
+@startuml Clean Architecture
+package "Presentation" {
+  class "TodoChangeNotifier" {
+    - TodoUseCase _todoUseCase
+    - List<TodoEntity> todos
+    + getTodos() : void
+    + addTodo(TodoEntity todo) : void
+    + updateTodo(TodoEntity todo) : void
+    + deleteTodo(int id) : void
+  }
+  class "TodoListPage" {
+    + initState() : void
+    + build(BuildContext context) : Widget
+  }
+}
+
+package "Domain" {
+  class "TodoEntity" {
+    - int id
+    - String title
+    - bool isCompleted
+  }
+  interface "TodoRepository" {
+    + getTodos() : Future<List<TodoEntity>>
+    + addTodo(TodoEntity todo) : Future<void>
+    + updateTodo(TodoEntity todo) : Future<void>
+    + deleteTodo(int id) : Future<void>
+  }
+  class "TodoUseCase" {
+    - TodoRepository repository
+    + GetTodosUseCase getTodos
+    + AddTodoUseCase addTodo
+    + UpdateTodoUseCase updateTodo
+    + DeleteTodoUseCase deleteTodo
+  }
+}
+
+package "Data" {
+  class "TodoDataSource" {
+    - List<TodoModel> _todos
+    + getTodos() : List<TodoModel>
+    + addTodo(TodoModel todo) : void
+    + updateTodo(TodoModel todo) : void
+    + deleteTodo(int id) : void
+  }
+  class "TodoRepositoryImpl" {
+    - TodoDataSource todoDataSource
+    + addTodo(TodoEntity todo) : Future<void>
+    + deleteTodo(int id) : Future<void>
+    + getTodos() : Future<List<TodoEntity>>
+    + updateTodo(TodoEntity todo) : Future<void>
+  }
+  class "TodoModel" {
+    - int id
+    - String title
+    - bool isCompleted
+  }
+}
+
+"TodoChangeNotifier" --> "TodoUseCase" : uses
+"TodoListPage" --> "TodoChangeNotifier" : uses
+"TodoUseCase" --> "TodoRepository" : uses
+"TodoRepositoryImpl" -up-|> "TodoRepository" : implements
+"TodoRepositoryImpl" --> "TodoDataSource" : uses
+"TodoRepositoryImpl" --> "TodoEntity" : uses
+"TodoRepositoryImpl" --> "TodoModel" : uses
+
+@enduml
