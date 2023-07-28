@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import '../../domain/entities/todo_entity.dart';
 import '../../domain/use_cases/todo_use_case.dart';
 
-class TodoChangeNotifier extends ChangeNotifier {
+class TodoViewModel extends ChangeNotifier {
   final TodoUseCase _todoUseCase;
 
-  TodoChangeNotifier(this._todoUseCase);
+  TodoViewModel(this._todoUseCase);
 
   // Cache todo list
   List<TodoEntity> todos = [];

@@ -2,7 +2,7 @@ import 'src/data/data_sources/todo_data_source.dart';
 import 'src/data/repositories/todo_repository_impl.dart';
 import 'src/domain/repositories/todo_repository.dart';
 import 'src/domain/use_cases/todo_use_case.dart';
-import 'src/presentation/change_notifiers/todo_change_notifier.dart';
+import 'src/presentation/pages/todo_view_model.dart';
 
 class Injector {
   static final Injector _singleton = Injector._internal();
@@ -27,8 +27,8 @@ class Injector {
     return TodoUseCase(todoRepository);
   }
 
-  TodoChangeNotifier provideTodoChangeNotifier() {
+  TodoViewModel provideTodoChangeNotifier() {
     final TodoUseCase todoUseCase = provideTodoUseCase();
-    return TodoChangeNotifier(todoUseCase);
+    return TodoViewModel(todoUseCase);
   }
 }

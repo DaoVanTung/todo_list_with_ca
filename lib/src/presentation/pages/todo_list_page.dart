@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 import '../../domain/entities/todo_entity.dart';
-import '../change_notifiers/todo_change_notifier.dart';
+import 'todo_view_model.dart';
 
 class TodoListPage extends StatefulWidget {
-  const TodoListPage({super.key, required this.todoChangeNotifier});
+  const TodoListPage({super.key, required this.viewModel});
 
-  final TodoChangeNotifier todoChangeNotifier;
+  final TodoViewModel viewModel;
 
   @override
   State<TodoListPage> createState() => _TodoListPageState();
@@ -16,7 +16,7 @@ class _TodoListPageState extends State<TodoListPage> {
   @override
   void initState() {
     super.initState();
-    widget.todoChangeNotifier.getTodos();
+    widget.viewModel.getTodos();
   }
 
   @override
@@ -26,9 +26,9 @@ class _TodoListPageState extends State<TodoListPage> {
         title: const Text('ToDo List'),
       ),
       body: AnimatedBuilder(
-        animation: widget.todoChangeNotifier,
+        animation: widget.viewModel,
         builder: (context, snapshot) {
-          final todos = widget.todoChangeNotifier.todos;
+          final todos = widget.viewModel.todos;
           return ListView.builder(
             itemCount: todos.length,
             itemBuilder: (context, index) {
@@ -40,7 +40,7 @@ class _TodoListPageState extends State<TodoListPage> {
                     TodoEntity updatedTodo = todos[index].copyWith(
                       isCompleted: value,
                     );
-                    widget.todoChangeNotifier.updateTodo(
+                    widget.viewModel.updateTodo(
                       updatedTodo,
                     );
                   },
@@ -48,7 +48,7 @@ class _TodoListPageState extends State<TodoListPage> {
                 trailing: IconButton(
                   icon: const Icon(Icons.delete),
                   onPressed: () {
-                    widget.todoChangeNotifier.deleteTodo(todos[index].id);
+                    widget.viewModel.deleteTodo(todos[index].id);
                   },
                 ),
               );
@@ -91,7 +91,7 @@ class _TodoListPageState extends State<TodoListPage> {
                   title: titleController.text,
                   isCompleted: false,
                 );
-                widget.todoChangeNotifier.addTodo(newTodo);
+                widget.viewModel.addTodo(newTodo);
                 Navigator.pop(context);
               },
               child: const Text('Add'),
