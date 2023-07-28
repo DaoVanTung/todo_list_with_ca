@@ -30,8 +30,7 @@ Mã nguồn của ứng dụng được tổ chức thành ba lớp chính: Data
     - presentation
       - pages
         - todo_list_page.dart
-      - change_notifiers
-        - todo_change_notifier.dart
+        - todo_view_model.dart
 ```
 
 ## Kiến trúc ứng dụng
